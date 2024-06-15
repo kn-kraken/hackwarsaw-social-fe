@@ -17,6 +17,7 @@ create table "activities"
     points int,
     name varchar,
     status varchar,
+    location point not null,
     creator_id int not null,
     performer_id int
 );
