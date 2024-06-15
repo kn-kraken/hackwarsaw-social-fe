@@ -18,6 +18,7 @@ create table "activities"
     name varchar,
     status varchar,
     location point not null,
+    creator_img bytea,
     creator_id int not null,
     performer_id int
 );

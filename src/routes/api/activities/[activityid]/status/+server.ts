@@ -12,7 +12,7 @@ export const PUT: RequestHandler = async ({ request, params }) => {
         UPDATE activities 
             SET status = ${body.status}
             WHERE id = ${params.activityid!}
-            RETURNING *;
+            RETURNING id, points, name, status, location, creator_id, performer_id;
     `;
 	return json(res[0]);
 };
