@@ -2,12 +2,10 @@ import { sql } from '$lib/server/db';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {
-	// const [{ message }] = await sql`SELECT 'Hello world!' as message`;
-    let creator_id = url.searchParams.get('user_id')
-    const activities = await sql`SELECT a.id, a.name as activity_name, a.status, a.performer_id
+    // endpoint na activities w zaleznosci od statusu
+    let status = url.searchParams.get('status')
+    const activities = await sql`SELECT a.id, a.name as activity_name, a.location
                                 FROM activities a
-                                        LEFT OUTER JOIN users u
-                                                        ON u.id = a.performer_id
-                                        WHERE a.creator_id=${creator_id}`;
+                                WHERE a.status=${status}`;
 	return json({activities});
 };
