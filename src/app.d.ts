@@ -5,7 +5,11 @@ declare global {
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
-		// interface PageState {}
+		interface PageState {
+			ticket?: boolean;
+			newTicket?: boolean;
+			sidebarOpen?: boolean;
+		}
 		// interface Platform {}
 	}
 }
