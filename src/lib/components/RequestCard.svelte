@@ -6,7 +6,7 @@
 
 	export let title: string;
 	export let description: string;
-	export let image: string;
+	export let id: string;
 </script>
 
 <Card
@@ -14,7 +14,7 @@
 	on:click={() =>
 		pushState('', {
 			...$page.state,
-			ticket: true
+			ticket: id
 		})}
 >
 	<div class="flex flex-col grow p-3">
@@ -33,5 +33,5 @@
 			<div>Warsaw</div>
 		</div>
 	</div>
-	<img src={image} alt="post" class="w-32 object-cover" />
+	<img src={`/api/activities/${id}/creatorimage`} alt="post" class="w-32 object-cover" />
 </Card>

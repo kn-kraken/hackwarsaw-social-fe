@@ -2,6 +2,10 @@
 	import MenuItem from './MenuItem.svelte';
 	import ranking from '$lib/assets/ranking.svg';
 	import newspaper from '$lib/assets/newspaper.svg';
+	import ticket from '$lib/assets/ticket.svg';
+	import area from '$lib/assets/area.svg';
+	import myTickets from '$lib/assets/my-tickets.svg';
+	import add from '$lib/assets/add.svg';
 	import menu from '$lib/assets/menu.svg';
 	import { type TransitionConfig } from 'svelte/transition';
 	import { page } from '$app/stores';
@@ -47,18 +51,17 @@
 	on:click={(e) => e.target === sidebarDim && hideSidebar()}
 />
 
-<button
-	class="absolute bottom-4 left-4 h-12 w-12 bg-green-400 p-2 rounded-full z-20 shadow-lg"
-	on:click={toggleSidebar}
+<div
+	class="absolute bottom-6 left-1/2 z-20 shadow-xl flex rounded-full overflow-hidden -translate-x-1/2"
 >
-	<img src={menu} alt="menu" />
-</button>
-<button
-	class="absolute bottom-4 left-20 h-12 w-12 bg-green-400 p-2 rounded-full z-20 shadow-lg"
-	on:click={newTicket}
->
-	<img src={menu} alt="menu" />
-</button>
+	<button class="h-12 w-12 p-3.5 bg-green-400" on:click={toggleSidebar}>
+		<img src={menu} alt="menu" />
+	</button>
+	<div class="min-w-[1px]" />
+	<button class="h-12 w-12 p-3.5 bg-green-400" on:click={newTicket}>
+		<img src={add} alt="menu" />
+	</button>
+</div>
 {#if sidebarOpen}
 	<div
 		class="dim absolute inset-0 bg-black z-20"
@@ -68,9 +71,9 @@
 	/>
 	<div class="absolute top-0 w-64 text-lg h-full bg-white flex flex-col z-20" transition:slide>
 		<div class="h-2 bg-green-500" />
-		<MenuItem href="/ranking" icon={ranking}>All tickets</MenuItem>
-		<MenuItem href="/my-tickets" icon={ranking}>My tickets</MenuItem>
-		<MenuItem href="/map" icon={ranking}>Nearby tickets</MenuItem>
+		<MenuItem href="/ranking" icon={ticket}>All tickets</MenuItem>
+		<MenuItem href="/my-tickets" icon={myTickets}>My tickets</MenuItem>
+		<MenuItem href="/map" icon={area}>Nearby tickets</MenuItem>
 		<!-- <MenuItem icon={newspaper}>Bulletin Board</MenuItem> -->
 	</div>
 {/if}

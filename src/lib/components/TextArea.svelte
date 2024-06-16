@@ -1,8 +1,6 @@
 <script lang="ts">
 	export let value: string;
+	export let placeholder = '';
 </script>
 
-<textarea
-	bind:value
-	class="h-36 border border-green-400 rounded-md !outline-none p-2 text-lg w-full"
-/>
+<textarea bind:value class="h-36 input-style" {placeholder} />

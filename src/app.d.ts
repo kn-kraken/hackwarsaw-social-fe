@@ -6,7 +6,7 @@ declare global {
 		// interface Locals {}
 		// interface PageData {}
 		interface PageState {
-			ticket?: boolean;
+			ticket?: string;
 			newTicket?: boolean;
 			sidebarOpen?: boolean;
 		}

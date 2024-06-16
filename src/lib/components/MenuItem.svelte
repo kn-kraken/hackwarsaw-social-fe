@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="{className} h-10 flex justify-between items-center px-5 cursor-pointer"
+	class="{className} h-10 flex justify-between items-center px-5 cursor-pointer hover:bg-gray-200"
 	on:click={() => {
 		if ($page.url.href !== href) {
 			// history.back();
