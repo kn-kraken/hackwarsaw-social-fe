@@ -9,9 +9,6 @@
 
 	export let id: string;
 
-	export let description: string =
-		'some extremely long ass description more text here bruh ehh even more pls';
-
 	let activity: Promise<Activity> = new Promise(() => {});
 
 	async function getActivity() {
@@ -47,7 +44,7 @@
 				{activity.activity_name}
 			</div>
 			<div class="text-md text-gray-600 overflow-hidden px-3 mb-4">
-				{description}
+				{activity.description}
 			</div>
 			<div class="grid grid-cols-[auto,1fr,auto] text-md px-3">
 				<div class="place-self-center">$</div>

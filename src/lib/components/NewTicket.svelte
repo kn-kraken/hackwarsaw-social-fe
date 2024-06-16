@@ -50,6 +50,7 @@
 			formData.append('creator_img', blob);
 			formData.append('points', '10');
 			formData.append('activity_name', title);
+			formData.append('description', description);
 			formData.append('location', '(52.2297,21.0122)');
 			formData.append('creator_id', $user!.id.toString());
 			const res = await fetch('/api/activities', {

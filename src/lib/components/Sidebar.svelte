@@ -2,6 +2,7 @@
 	import MenuItem from './MenuItem.svelte';
 	import ranking from '$lib/assets/ranking.svg';
 	import newspaper from '$lib/assets/newspaper.svg';
+	import userIcon from '$lib/assets/user.svg';
 	import ticket from '$lib/assets/ticket.svg';
 	import area from '$lib/assets/area.svg';
 	import myTickets from '$lib/assets/my-tickets.svg';
@@ -73,7 +74,7 @@
 	<div class="absolute top-0 w-64 text-lg h-full bg-gray-100 flex flex-col z-20" transition:slide>
 		<div class="h-10 bg-green-500 flex justify-between font-semibold items-center px-5">
 			<div class="mr-3">{$user?.name}</div>
-			<img class="h-[1.5em]" src={ticket} />
+			<img class="h-[1.5em]" src={userIcon} />
 		</div>
 		<MenuItem href="/ranking" icon={ticket}>All tickets</MenuItem>
 		<MenuItem href="/my-tickets" icon={myTickets}>My tickets</MenuItem>
