@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import pin from '$lib/assets/pin.svg';
-	import img1 from '$lib/assets/img1.png';
 	import Status from '$lib/components/Status.svelte';
 	import HistoryEntry from '$lib/components/HistoryEntry.svelte';
 	import { onMount } from 'svelte';
-	import type { Activity } from '$lib';
+	import { invalidate, type Activity } from '$lib';
+	import { browser } from '$app/environment';
 
 	export let id: string;
 
@@ -14,9 +14,27 @@
 
 	let activity: Promise<Activity> = new Promise(() => {});
 
-	onMount(async () => {
+	async function getActivity() {
 		activity = fetch(`/api/activities/detail?activity_id=${id}`).then((res) => res.json());
-	});
+	}
+
+	onMount(getActivity);
+
+	async function markAsCompleted() {
+		let res = await fetch(`/api/activities/${id}/status`, {
+			method: 'PUT',
+			body: JSON.stringify({
+				status: 'FINISHED'
+			})
+		});
+
+		if (!res.ok) {
+			return;
+		}
+
+		getActivity();
+		invalidate.set({});
+	}
 </script>
 
 <div class="h-full w-full p-4 gap-4 overflow-auto">
@@ -24,7 +42,7 @@
 		<div class="h-full w-full flex flex-col items-center justify-center">Loading...</div>
 	{:then activity}
 		<Card class="w-full flex flex-col pb-3 max-h-none">
-			<img src={`/api/activities/${id}/creatorimage`} alt="post" class="h-20 object-cover" />
+			<img src={`/api/activities/${id}/creatorimage`} alt="post" class="h-32 object-cover" />
 			<div class="text-2xl font-semibold text-gray-700 px-3 py-1">
 				{activity.activity_name}
 			</div>
@@ -37,13 +55,12 @@
 				<div class="">Status</div>
 				<img src={pin} alt="post" class="h-4 place-self-center" />
 				<div>Warsaw</div>
-				<Status status="cancelled" />
+				<Status status={activity.status} />
 			</div>
 			<hr class="m-3 border-gray-500" />
-			<div class="px-3 text-lg">Ticket history</div>
-			<HistoryEntry user="John" status="cancelled" time={new Date()} />
-			<HistoryEntry user="John" status="cancelled" time={new Date()} />
-			<HistoryEntry user="John" status="cancelled" time={new Date()} />
+			<button class="bg-green-400 rounded-full mx-3 h-10 text-lg" on:click={markAsCompleted}>
+				Completed
+			</button>
 		</Card>
 	{/await}
 </div>

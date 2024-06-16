@@ -10,6 +10,7 @@
 	import { type TransitionConfig } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { pushState, replaceState } from '$app/navigation';
+	import { user } from '$lib';
 
 	let sidebarDim: HTMLDivElement;
 
@@ -69,8 +70,11 @@
 		bind:this={sidebarDim}
 		transition:fade
 	/>
-	<div class="absolute top-0 w-64 text-lg h-full bg-white flex flex-col z-20" transition:slide>
-		<div class="h-2 bg-green-500" />
+	<div class="absolute top-0 w-64 text-lg h-full bg-gray-100 flex flex-col z-20" transition:slide>
+		<div class="h-10 bg-green-500 flex justify-between font-semibold items-center px-5">
+			<div class="mr-3">{$user?.name}</div>
+			<img class="h-[1.5em]" src={ticket} />
+		</div>
 		<MenuItem href="/ranking" icon={ticket}>All tickets</MenuItem>
 		<MenuItem href="/my-tickets" icon={myTickets}>My tickets</MenuItem>
 		<MenuItem href="/map" icon={area}>Nearby tickets</MenuItem>

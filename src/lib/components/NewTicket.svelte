@@ -7,6 +7,9 @@
 	import Input from './Input.svelte';
 	import TextArea from './TextArea.svelte';
 	import { user } from '$lib';
+	import { invalidate } from '$lib';
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	let title: string = 'Request 1';
 	let description: string =
@@ -49,10 +52,19 @@
 			formData.append('activity_name', title);
 			formData.append('location', '(52.2297,21.0122)');
 			formData.append('creator_id', $user!.id.toString());
-			await fetch('/api/activities', {
+			const res = await fetch('/api/activities', {
 				method: 'POST',
 				body: formData
 			});
+			if (!res.ok) {
+				return;
+			}
+
+			const { id } = await res.json();
+
+			invalidate.set({});
+
+			replaceState('', { ...$page.state, newTicket: false, ticket: id });
 		});
 	}
 
@@ -82,12 +94,13 @@
 	}
 </script>
 
-<div class="w-full max-w-3xl mx-auto p-4 gap-4">
+<div class="w-full max-w-3xl mx-auto p-4 flex flex-col">
 	<div class="mt-1.5 mb-0.5">Ticket title</div>
 	<Input bind:value={title} placeholder="Title" />
 	<div class="mt-1.5 mb-0.5">Description</div>
 	<TextArea bind:value={description} placeholder="Explain the activity" />
-	<div class="relative w-full overflow-hidden rounded-md border border-gray-400">
+	<div class="mt-1.5 mb-0.5">Image</div>
+	<div class="relative w-full overflow-hidden rounded-md border border-gray-400 bg-gray-50">
 		<div
 			class="flex aspect-square w-full items-center justify-center {stage !== 'add'
 				? 'hidden'
@@ -119,7 +132,9 @@
 			on:click={() => (stage = 'add')}>X</button
 		>
 	</div>
-	<button class="bg-green-400 text-white px-4 py-2 rounded-md" on:click={submit}>Submit</button>
+	<button class="bg-green-400 text-white px-4 py-2 ml-auto mt-3 rounded-md" on:click={submit}
+		>Post</button
+	>
 	<!-- <Card class="w-full flex flex-col pb-3 max-h-none">
 		<img src={image} alt="post" class="h-20 object-cover" />
 		<div class="text-2xl font-semibold text-gray-700 px-3 py-1">

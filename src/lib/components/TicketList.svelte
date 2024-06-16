@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Activity } from '$lib';
+	import { browser } from '$app/environment';
+	import { invalidate, type Activity } from '$lib';
 	import RequestCard from '$lib/components/RequestCard.svelte';
 	import { onMount } from 'svelte';
 
@@ -7,11 +8,21 @@
 
 	let activities: Promise<Activity[]> = new Promise(() => {});
 
-	onMount(() => {
+	function fetchActivities() {
 		activities = fetch(url)
 			.then((res) => res.json())
 			.then((data: { activities: Activity[] }) => data.activities);
+	}
+
+	let mounted = false;
+
+	onMount(() => {
+		mounted = true;
 	});
+
+	$: if (browser && mounted && $invalidate) {
+		fetchActivities();
+	}
 </script>
 
 <div class="h-full w-full p-4 flex flex-col gap-4 overflow-auto min-h-0">
@@ -21,7 +32,7 @@
 		{#each activities as activity}
 			<RequestCard
 				title={activity.activity_name}
-				description={activity.location}
+				description={activity.description}
 				id={activity.id}
 			/>
 		{/each}

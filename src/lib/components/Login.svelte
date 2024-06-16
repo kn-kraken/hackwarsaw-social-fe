@@ -4,9 +4,6 @@
 
 	async function handleSubmit(username: string) {
 		username = username.trim();
-		if (username.length < 3) {
-			return;
-		}
 
 		let res = await fetch('/api/users', {
 			method: 'POST',

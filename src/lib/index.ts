@@ -6,4 +6,7 @@ export type Activity = {
 	id: string;
 	activity_name: string;
 	location: string;
+	status: 'CREATED' | 'FINISHED';
 };
+
+export const invalidate = writable<{}>({});

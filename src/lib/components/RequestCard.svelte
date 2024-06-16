@@ -22,7 +22,7 @@
 			{title}
 		</div>
 		<div class="relative grow text-sm text-gray-600 min-h-0 overflow-hidden mb-1">
-			{description}
+			{description || 'no description'}
 			<div
 				class="absolute inset-0 bg-gradient-to-t group-hover:from-gray-100 from-white to-transparent to-40%"
 			></div>
