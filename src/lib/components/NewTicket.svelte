@@ -12,8 +12,7 @@
 	import { page } from '$app/stores';
 
 	let title: string = 'Request 1';
-	let description: string =
-		'some extremely long ass description more text here bruh ehh even more pls';
+	let description: string = 'description';
 
 	let video: HTMLVideoElement;
 
