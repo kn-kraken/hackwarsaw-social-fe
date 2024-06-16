@@ -53,7 +53,7 @@
 			formData.append('description', description);
 			formData.append(
 				'location',
-				`(${52.2297 + Math.random() * 0.05},${21.0122 + Math.random() * 0.05})`
+				`(${52.256090 + Math.random() * 0.05},${21.044496 + Math.random() * 0.05})`
 			);
 			formData.append('creator_id', $user!.id.toString());
 			const res = await fetch('/api/activities', {
