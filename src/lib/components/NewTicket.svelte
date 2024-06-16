@@ -24,7 +24,11 @@
 	}
 
 	async function startVideo() {
-		mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+		mediaStream = await navigator.mediaDevices.getUserMedia({
+			video: { facingMode: 'environment' },
+
+			audio: false
+		});
 		video.srcObject = mediaStream;
 
 		video.oncanplay = () => {
@@ -53,7 +57,7 @@
 			formData.append('description', description);
 			formData.append(
 				'location',
-				`(${52.256090 + Math.random() * 0.05},${21.044496 + Math.random() * 0.05})`
+				`(${52.25609 + Math.random() * 0.05},${21.044496 + Math.random() * 0.05})`
 			);
 			formData.append('creator_id', $user!.id.toString());
 			const res = await fetch('/api/activities', {
