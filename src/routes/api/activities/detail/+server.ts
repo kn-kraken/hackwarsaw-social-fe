@@ -4,7 +4,7 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const GET: RequestHandler = async ({ url }) => {
     // enpoint na szczegolowy opis aktywnosci
     let activity_id = url.searchParams.get('activity_id')
-    const res = await sql`SELECT a.name as activity_name, a.status,
+    const res = await sql`SELECT a.name as activity_name, a.status, a.description
                                         a.points, a.location, uc.name as creator_name, up.name as performer_name
                                 FROM activities a
                                         LEFT OUTER JOIN users uc
