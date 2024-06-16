@@ -10,6 +10,7 @@ create table "users"
 );
 
 alter table users add constraint users_pk primary key (id);
+alter table users add constraint name_uk unique (name);
 
 create table "activities"
 (
